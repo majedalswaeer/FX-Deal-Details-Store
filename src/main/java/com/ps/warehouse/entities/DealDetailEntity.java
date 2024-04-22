@@ -9,7 +9,6 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.UuidGenerator;
 
 @Getter
 @Setter
@@ -20,7 +19,7 @@ public class DealDetailEntity {
 
     @Id
     @Column(name = "ID")
-    private String id;
+    private Long id;
 
     @Column(name = "FROM_CURRENCY_ISO_Code")
     private String  fromCurrencyISOCode;
