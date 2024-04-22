@@ -4,7 +4,8 @@ public enum CommonMessagesEnum {
 
     VALIDATION_ALREADY_EXISTS("commonmessages.validation.already-exists.message"),
     GENERIC_ERROR("commonmessages.generic.error.message"),
-    VALIDATION_FAIL("commonmessages.validation.fail.message");
+    VALIDATION_FAIL("commonmessages.validation.fail.message"),
+    VALIDATION_NEGATIVE_AMOUNT("commonmessages.validation.negative.amount.message");
 
     private final String key;
 
@@ -14,10 +15,6 @@ public enum CommonMessagesEnum {
 
     public String getKey() {
         return key;
-    }
-
-    public String getKeyWithExtraBrackets() {
-        return "{" + key + "}";
     }
 
 }

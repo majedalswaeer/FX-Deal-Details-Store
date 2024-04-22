@@ -20,6 +20,7 @@ public class ValidatorBeanFactory extends LocalValidatorFactoryBean {
 
 
     protected void addMappings(HibernateValidatorConfiguration hibernateConfiguration) {
+        // add annotation with the targeted dto here
         addMappingToConfiguration(hibernateConfiguration, ValidDealDetail.class, DealDetailValidator.class);
 
     }

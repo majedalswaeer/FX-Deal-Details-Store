@@ -7,10 +7,13 @@ import com.ps.warehouse.validation.ValidatorHelper;
 import com.ps.warehouse.validation.annotations.ValidDealDetail;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import java.math.BigDecimal;
 
 public class DealDetailValidator implements ConstraintValidator<ValidDealDetail, DealDetail> {
 
     static final String ID_FIELD_NAME = "id";
+
+    static final String AMOUNT_FIELD_NAME = "amount";
 
     private final DealDetailRepository dealDetailRepository;
 
@@ -23,6 +26,20 @@ public class DealDetailValidator implements ConstraintValidator<ValidDealDetail,
         context.disableDefaultConstraintViolation();
         boolean isValid = true;
         if (isDealDetailExists(dealDetail, context)) {
+            isValid = false;
+        }
+
+        if (!isAmountValid(dealDetail, context)) {
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    private boolean isAmountValid(DealDetail dealDetail, ConstraintValidatorContext context) {
+        boolean isValid = true;
+        if (dealDetail.getAmount() != null && dealDetail.getAmount().compareTo(BigDecimal.ZERO) < 0) {
+            ValidatorHelper.addFieldConstraintViolation(context, CommonMessagesEnum.VALIDATION_NEGATIVE_AMOUNT.getKey(),
+                    AMOUNT_FIELD_NAME);
             isValid = false;
         }
         return isValid;
