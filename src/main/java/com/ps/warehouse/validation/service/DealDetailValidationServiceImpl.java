@@ -15,7 +15,7 @@ public class DealDetailValidationServiceImpl implements DealDetailValidationServ
 
     @Override
     public boolean isDealDetailDuplicated(Long id) {
-        return dealDetailRepository.existsById(id.toString());
+        return dealDetailRepository.existsById(id);
     }
 
     @Override

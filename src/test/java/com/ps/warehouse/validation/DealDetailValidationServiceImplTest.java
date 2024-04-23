@@ -26,7 +26,7 @@ class DealDetailValidationServiceImplTest {
     @Test
     void isDealDetailDuplicated_returnsTrue() {
         DealDetail dealDetail = DealDetailStubs.getDealDetail();
-        when(dealDetailRepository.existsById(dealDetail.getId().toString())).thenReturn(true);
+        when(dealDetailRepository.existsById(dealDetail.getId())).thenReturn(true);
 
         assertTrue(target.isDealDetailDuplicated(dealDetail.getId()));
     }
@@ -34,7 +34,7 @@ class DealDetailValidationServiceImplTest {
     @Test
     void isDealDetailDuplicated_returnsFalse() {
         DealDetail dealDetail = DealDetailStubs.getDealDetail();
-        when(dealDetailRepository.existsById(dealDetail.getId().toString())).thenReturn(false);
+        when(dealDetailRepository.existsById(dealDetail.getId())).thenReturn(false);
 
         assertFalse(target.isDealDetailDuplicated(dealDetail.getId()));
     }
