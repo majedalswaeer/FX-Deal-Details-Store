@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -112,6 +113,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                              .body(errorMessage);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status,
+            WebRequest request) {
+
+        // Create the error message
+        String message = messageSource.getMessage(CommonMessagesEnum.SOMETHING_WENT_WRONG.getKey(), null, LocaleContextHolder.getLocale());
+
+        BaseMessage errorMessage = BaseMessage.builder()
+                                              .message(message)
+                                              .status(status.value())
+                                              .path(getPath(request))
+                                              .build();
+
+        return ResponseEntity.badRequest()
+                             .body(errorMessage);
+    }
+
     /**
      * Handler that serves as a catch-all. If no specific error handler is found for an exception, this method will be invoked.
      *
@@ -126,7 +145,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         log.error("Unhandled exception: ", ex);
 
-        String message = messageSource.getMessage(CommonMessagesEnum.GENERIC_ERROR.getKey(), null, locale);
+        String message = messageSource.getMessage(CommonMessagesEnum.VALIDATION_FAIL.getKey(), null, locale);
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 
         BaseMessage genericErrorMessage = BaseMessage.builder()

@@ -11,16 +11,17 @@ import lombok.Data;
 @Data
 @ValidDealDetail
 public class DealDetail {
+
     @NotNull
     private Long id;
 
     @NotNull
-    @Size(min = 3, max = 3, message = "ISO currency code must contain three characters only")
+    @Size(min = 3, max = 3, message = "The ISO currency code must consist of exactly three characters")
     @Pattern(regexp = "^[A-Z]{3}$", message = "Currency code format is invalid")
     private String fromCurrencyISOCode;
 
     @NotNull
-    @Size(min = 3, max = 3, message = "ISO currency code must contain three characters only")
+    @Size(min = 3, max = 3, message = "The ISO currency code must consist of exactly three characters")
     @Pattern(regexp = "^[A-Z]{3}$", message = "Currency code format is invalid")
     private String toCurrencyISOCode;
 
