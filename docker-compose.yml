@@ -16,7 +16,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     volumes:
-      - C:/warehouse-logs:/usr/local/lib/logs
+      - ${LOG_PATH}:/usr/local/lib/logs
     networks:
       - my_network
 
